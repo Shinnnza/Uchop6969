@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FansHub - Premium Content Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+        .content-card {
+            transition: all 0.3s ease;
+        }
+        .content-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .creator-card:hover .creator-img {
+            transform: scale(1.05);
+        }
+        .creator-img {
+            transition: transform 0.3s ease;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            right: 0;
+            background: white;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-radius: 0.5rem;
+            z-index: 10;
+        }
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans">
+    <!-- Header/Navigation -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <div class="gradient-bg w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-xl">FH</div>
+                <span class="text-xl font-bold text-gray-800 hidden md:block">FansHub</span>
+            </div>
+            
+            <div class="hidden md:flex space-x-6">
+                <a href="#" class="text-gray-700 hover:text-pink-500 font-medium">Home</a>
+                <a href="#" class="text-gray-700 hover:text-pink-500 font-medium">Explore</a>
+                <a href="#" class="text-gray-700 hover:text-pink-500 font-medium">Categories</a>
+                <a href="#" class="text-gray-700 hover:text-pink-500 font-medium">Pricing</a>
+            </div>
+            
+            <div class="flex items-center space-x-4">
+                <div class="relative hidden md:block">
+                    <input type="text" placeholder="Search creators..." class="pl-10 pr-4 py-2 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent">
+                    <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                </div>
+                
+                <div class="flex items-center space-x-2">
+                    <button class="bg-pink-500 hover:bg-pink-600 text-white px-4 py-2 rounded-full font-medium transition duration-300">
+                        <i class="fas fa-plus mr-1"></i> Create
+                    </button>
+                    
+                    <div class="dropdown relative">
+                        <button class="flex items-center space-x-1 focus:outline-none">
+                            <div class="w-8 h-8 rounded-full bg-gray-300 overflow-hidden">
+                                <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Profile" class="w-full h-full object-cover">
+                            </div>
+                            <i class="fas fa-chevron-down text-gray-600 text-xs"></i>
+                        </button>
+                        
+                        <div class="dropdown-menu mt-2 w-48 py-1">
+                            <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100"><i class="fas fa-user mr-2"></i> Profile</a>
+                            <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100"><i class="fas fa-cog mr-2"></i> Settings</a>
+                            <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100"><i class="fas fa-wallet mr-2"></i> Wallet</a>
+                            <div class="border-t border-gray-200 my-1"></div>
+                            <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100"><i class="fas fa-sign-out-alt mr-2"></i> Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="md:hidden text-gray-600 focus:outline-none">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Search -->
+    <div class="md:hidden bg-white py-2 px-4 shadow-sm">
+        <div class="relative">
+            <input type="text" placeholder="Search creators..." class="pl-10 pr-4 py-2 w-full rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent">
+            <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-6">
+        <!-- Hero Section -->
+        <section class="gradient-bg rounded-2xl p-8 md:p-12 text-white mb-10">
+            <div class="max-w-2xl">
+                <h1 class="text-3xl md:text-5xl font-bold mb-4">Connect with your favorite creators</h1>
+                <p class="text-lg md:text-xl mb-6">Subscribe to exclusive content, interact directly, and support the creators you love.</p>
+                <div class="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4">
+                    <button class="bg-white text-pink-600 hover:bg-gray-100 px-6 py-3 rounded-full font-bold transition duration-300">
+                        Join as a fan
+                    </button>
+                    <button class="bg-transparent border-2 border-white hover:bg-white hover:text-pink-600 px-6 py-3 rounded-full font-bold transition duration-300">
+                        Become a creator
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Creators -->
+        <section class="mb-12">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold text-gray-800">Featured Creators</h2>
+                <a href="#" class="text-pink-500 hover:text-pink-600 font-medium">See all</a>
+            </div>
+            
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+                <!-- Creator Card 1 -->
+                <div class="creator-card bg-white rounded-xl overflow-hidden shadow-sm cursor-pointer">
+                    <div class="relative overflow-hidden h-48">
+                        <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Creator" class="creator-img w-full h-full object-cover">
+                        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-3">
+                            <div class="flex justify-between items-end">
+                                <div>
+                                    <h3 class="text-white font-bold">Jessica</h3>
+                                    <p class="text-gray-300 text-sm">Fitness Coach</p>
+                                </div>
+                                <span class="bg-pink-500 text-white text-xs px-2 py-1 rounded-full">$9.99/mo</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-3">
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center">
+                                <i class="fas fa-heart text-pink-500 mr-1"></i>
+                                <span class="text-gray-600 text-sm">1.2K</span>
+                            </div>
+                            <button class="text-xs bg-gray-200 hover:bg-gray-300 px-2 py-1 rounded-full">Follow</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Creator Card 2 -->
+                <div class="creator-card bg-white rounded-xl overflow-hidden shadow-sm cursor-pointer">
+                    <div class="relative overflow-hidden h-48">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Creator" class="creator-img w-full h-full object-cover">
+                        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-3">
+                            <div class="flex justify-between items-end">
+                                <div>
+                                    <h3 class="text-white font-bold">Mike</h3>
+                                    <p class="text-gray-300 text-sm">Photographer</p>
+                                </div>
+                                <span class="bg-pink-500 text-white text-xs px-2 py-1 rounded-full">$14.99/mo</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-3">
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center">
+                                <i class="fas fa-heart text-pink-500 mr-1"></i>
+                                <span class="text-gray-600 text-sm">2.4K</span>
+                            </div>
+                            <button class="text-xs bg-gray-200 hover:bg-gray-300 px-2 py-1 rounded-full">Follow</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Creator Card 3 -->
+                <div class="creator-card bg-white rounded-xl overflow-hidden shadow-sm cursor-pointer">
+                    <div class="relative overflow-hidden h-48">
+                        <img src="https://randomuser.me/api/portraits/women/12.jpg" alt="Creator" class="creator-img w-full h-full object-cover">
+                        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-3">
+                            <div class="flex justify-between items-end">
+                                <div>
+                                    <h3 class="text-white font-bold">Sophia</h3>
+                                    <p class="text-gray-300 text-sm">Model</p>
+                                </div>
+                                <span class="bg-pink-500 text-white text-xs px-2 py-1 rounded-full">$19.99/mo</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-3">
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center">
+                                <i class="fas fa-heart text-pink-500 mr-1"></i>
+                                <span class="text-gray-600 text-sm">5.7K</span>
+                            </div>
+                            <button class="text-xs bg-gray-200 hover:bg-gray-300 px-2 py-1 rounded-full">Follow</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Creator Card 4 -->
+                <div class="creator-card bg-white rounded-xl overflow-hidden shadow-sm cursor-pointer">
+                    <div class="relative overflow-hidden h-48">
+                        <img src="https://randomuser.me/api/portraits/men/76.jpg" alt="Creator" class="creator-img w-full h-full object-cover">
+                        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-3">
+                            <div class="flex justify-between items-end">
+                                <div>
+                                    <h3 class="text-white font-bold">David</h3>
+                                    <p class="text-gray-300 text-sm">Chef</p>
+                                </div>
+                                <span class="bg-pink-500 text-white text-xs px-2 py-1 rounded-full">$7.99/mo</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-3">
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center">
+                                <i class="fas fa-heart text-pink-500 mr-1"></i>
+                                <span class="text-gray-600 text-sm">890</span>
+                            </div>
+                            <button class="text-xs bg-gray-200 hover:bg-gray-300 px-2 py-1 rounded-full">Follow</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Creator Card 5 -->
+                <div class="creator-card bg-white rounded-xl overflow-hidden shadow-sm cursor-pointer">
+                    <div class="relative overflow-hidden h-48">
+                        <img src="https://randomuser.me/api/portraits/women/33.jpg" alt="Creator" class="creator-img w-full h-full object-cover">
+                        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-3">
+                            <div class="flex justify-between items-end">
+                                <div>
+                                    <h3 class="text-white font-bold">Emma</h3>
+                                    <p class="text-gray-300 text-sm">Artist</p>
+                                </div>
+                                <span class="bg-pink-500 text-white text-xs px-2 py-1 rounded-full">$11.99/mo</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-3">
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center">
+                                <i class="fas fa-heart text-pink-500 mr-1"></i>
+                                <span class="text-gray-600 text-sm">3.1K</span>
+                            </div>
+                            <button class="text-xs bg-gray-200 hover:bg-gray-300 px-2 py-1 rounded-full">Follow</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Content Tabs -->
+        <section class="mb-12">
+            <div class="flex border-b border-gray-200 mb-6">
+                <button class="tab-btn py-3 px-6 font-medium text-gray-500 hover:text-pink-500 border-b-2 border-transparent hover:border-pink-500 transition duration-300 active" data-tab="trending">
+                    Trending
+                </button>
+                <button class="tab-btn py-3 px-6 font-medium text-gray-500 hover:text-pink-500 border-b-2 border-transparent hover:border-pink-500 transition duration-300" data-tab="new">
+                    New
+                </button>
+                <button class="tab-btn py-3 px-6 font-medium text-gray-500 hover:text-pink-500 border-b-2 border-transparent hover:border-pink-500 transition duration-300" data-tab="popular">
+                    Most Popular
+                </button>
+            </div>
+            
+            <div id="trending" class="tab-content active">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Content Card 1 -->
+                    <div class="content-card bg-white rounded-xl overflow-hidden shadow-sm">
+                        <div class="relative">
+                            <img src="https://source.unsplash.com/random/600x400/?fitness" alt="Content" class="w-full h-48 object-cover">
+                            <div class="absolute top-2 right-2 bg-black bg-opacity-60 text-white text-xs px-2 py-1 rounded">4:32</div>
+                        </div>
+                        <div class="p-4">
+                            <div class="flex items-center mb-3">
+                                <div class="w-8 h-8 rounded-full overflow-hidden mr-2">
+                                    <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Creator" class="w-full h-full object-cover">
+                                </div>
+                                <span class="font-medium">Jessica</span>
+                            </div>
+                            <h3 class="font-bold mb-2">Morning Workout Routine</h3>
+                            <p class="text-gray-600 text-sm mb-3">Start your day with this energizing 30-minute workout session.</p>
+                            <div class="flex justify-between items-center text-sm">
+                                <div class="flex items-center text-gray-500">
+                                    <i class="fas fa-eye mr-1"></i> 2.4K
+                                    <i class="fas fa-heart ml-3 mr-1"></i> 568
+                                </div>
+                                <span class="text-pink-500 font-medium">$2.99</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Content Card 2 -->
+                    <div class="content-card bg-white rounded-xl overflow-hidden shadow-sm">
+                        <div class="relative">
+                            <img src="https://source.unsplash.com/random/600x400/?photography" alt="Content" class="w-full h-48 object-cover">
+                            <div class="absolute top-2 right-2 bg-black bg-opacity-60 text-white text-xs px-2 py-1 rounded">Photo Set</div>
+                        </div>
+                        <div class="p-4">
+                            <div class="flex items-center mb-3">
+                                <div class="w-8 h-8 rounded-full overflow-hidden mr-2">
+                                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Creator" class="w-full h-full object-cover">
+                                </div>
+                                <span class="font-medium">Mike</span>
+                            </div>
+                            <h3 class="font-bold mb-2">Urban Landscapes</h3>
+                            <p class="text-gray-600 text-sm mb-3">Exclusive collection of cityscape photography from around the world.</p>
+                            <div class="flex justify-between items-center text-sm">
+                                <div class="flex items-center text-gray-500">
+                                    <i class="fas fa-eye mr-1"></i> 3.1K
+                                    <i class="fas fa-heart ml-3 mr-1"></i> 892
+                                </div>
+                                <span class="text-pink-500 font-medium">$4.99</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Content Card 3 -->
+                    <div class="content-card bg-white rounded-xl overflow-hidden shadow-sm">
+                        <div class="relative">
+                            <img src="https://source.unsplash.com/random/600x400/?model" alt="Content" class="w-full h-48 object-cover">
+                            <div class="absolute top-2 right-2 bg-black bg-opacity-60 text-white text-xs px-2 py-1 rounded">18+</div>
+                        </div>
+                        <div class="p-4">
+                            <div class="flex items-center mb-3">
+                                <div class="w-8 h-8 rounded-full overflow-hidden mr-2">
+                                    <img src="https://randomuser.me/api/portraits/women/12.jpg" alt="Creator" class="w-full h-full object-cover">
+                                </div>
+                                <span class="font-medium">Sophia</span>
+                            </div>
+                            <h3 class="font-bold mb-2">Exclusive Photoshoot</h3>
+                            <p class="text-gray-600 text-sm mb-3">Behind the scenes of my latest professional photoshoot.</p>
+                            <div class="flex justify-between items-center text-sm">
+                                <div class="flex items-center text-gray-500">
+                                    <i class="fas fa-eye mr-1"></i> 8.7K
+                                    <i class="fas fa-heart ml-3 mr-1"></i> 3.2K
+                                </div>
+                                <span class="text-pink-500 font-medium">$6.99</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="new" class="tab-content">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- New Content Card 1 -->
+                    <div class="content-card bg-white rounded-xl overflow-hidden shadow-sm">
+                        <div class="relative">
+                            <img src="https://source.unsplash.com/random/600x400/?cooking" alt="Content" class="w-full h-48 object-cover">
+                            <div class="absolute top-2 right-2 bg-black bg-opacity-60 text-white text-xs px-2 py-1 rounded">12:45</div>
+                        </div>
+                        <div class="p-4">
+                            <div class="flex items-center mb-3">
+                                <div class="w-8 h-8 rounded-full overflow-hidden mr-2">
+                                    <img src="https://randomuser.me/api/portraits/men/76.jpg" alt="Creator" class="w-full h-full object-cover">
+                                </div>
+                                <span class="font-medium">David</span>
+                            </div>
+                            <h3 class="font-bold mb-2">Italian Pasta Masterclass</h3>
+                            <p class="text-gray-600 text-sm mb-3">Learn to make authentic Italian pasta from scratch.</p>
+                            <div class="flex justify-between items-center text-sm">
+                                <div class="flex items-center text-gray-500">
+                                    <i class="fas fa-eye mr-1"></i> 1.2K
+                                    <i class="fas fa-heart ml-3 mr-1"></i> 342
+                                </div>
+                                <span class="text-pink-500 font-medium">$3.99</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- New Content Card 2 -->
+                    <div class="content-card bg-white rounded-xl overflow-hidden shadow-sm">
+                        <div class="relative">
+                            <img src="https://source.unsplash.com/random/600x400/?art" alt="Content" class="w-full h-48 object-cover">
+                            <div class="absolute top-2 right-2 bg-black bg-opacity-60 text-white text-xs px-2 py-1 rounded">Tutorial</div>
+                        </div>
+                        <div class="p-4">
+                            <div class="flex items-center mb-3">
+                                <div class="w-8 h-8 rounded-full overflow-hidden mr-2">
+                                    <img src="https://randomuser.me/api/portraits/women/33.jpg" alt="Creator" class="w-full h-full object-cover">
+                                </div>
+                                <span class="font-medium">Emma</span>
+                            </div>
+                            <h3 class="font-bold mb-2">Watercolor Techniques</h3>
+                            <p class="text-gray-600 text-sm mb-3">Step-by-step guide to mastering watercolor painting.</p>
+                            <div class="flex justify-between items-center text-sm">
+                                <div class="flex items-center text-gray-500">
+                                    <i class="fas fa-eye mr-1"></i> 876
+                                    <i class="fas fa-heart ml-3 mr-1"></i> 231
+                                </div>
+                                <span class="text-pink-500 font-medium">$2.99</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- New Content Card 3 -->
+                    <div class="content-card bg-white rounded-xl overflow-hidden shadow-sm">
+                        <div class="relative">
+                            <img src="https://source.unsplash.com/random/600x400/?yoga" alt="Content" class="w-full h-48 object-cover">
+                            <div class="absolute top-2 right-2 bg-black bg-opacity-60 text-white text-xs px-2 py-1 rounded">Live</div>
+                        </div>
+                        <div class="p-4">
+                            <div class="flex items-center mb-3">
+                                <div class="w-8 h-8 rounded-full overflow-hidden mr-2">
+                                    <img src="https://randomuser.me/api/portraits/women/22.jpg" alt="Creator" class="w-full h-full object-cover">
+                                </div>
+                                <span class="font-medium">Sarah</span>
+                            </div>
+                            <h3 class="font-bold mb-2">Evening Yoga Session</h3>
+                            <p class="text-gray-600 text-sm mb-3">Relax and unwind with this gentle evening yoga flow.</p>
+                            <div class="flex justify-between items-center text-sm">
+                                <div class="flex items-center text-gray-500">
+                                    <i class="fas fa-eye mr-1"></i> 1.5K
+                                    <i class="fas fa-heart ml-3 mr-1"></i> 467
+                                </div>
+                                <span class="text-pink-500 font-medium">$1.99</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="popular" class="tab-content">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Popular Content Card 1 -->
+                    <div class="content-card bg-white rounded-xl overflow-hidden shadow-sm">
+                        <div class="relative">
+                            <img src="https://source.unsplash.com/random/600x400/?cosplay" alt="Content" class="w-full h-48 object-cover">
+                            <div class="absolute top-2 right-2 bg-black bg-opacity-60 text-white text-xs px-2 py-1 rounded">18+</div>
+                        </div>
+                        <div class="p-4">
+                            <div class="flex items-center mb-3">
+                                <div class="w-8 h-8 rounded-full overflow-hidden mr-2">
+                                    <img src="https://randomuser.me/api/portraits/women/45.jpg" alt="Creator" class="w-full h-full object-cover">
+                                </div>
+                                <span class="font-medium">Lily</span>
+                            </div>
+                            <h3 class="font-bold mb-2">Cosplay Transformation</h3>
+                            <p class="text-gray-600 text-sm mb-3">Full process from makeup to final costume reveal.</p>
+                            <div class="flex justify-between items-center text-sm">
+                                <div class="flex items-center text-gray-500">
+                                    <i class="fas fa-eye mr-1"></i> 12.3K
+                                    <i class="fas fa-heart ml-3 mr-1"></i> 5.6K
+                                </div>
+                                <span class="text-pink-500 font-medium">$8.99</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Popular Content Card 2 -->
+                    <div class="content-card bg-white rounded-xl overflow-hidden shadow-sm">
+                        <div class="relative">
+                            <img src="https://source.unsplash.com/random/600x400/?music" alt="Content" class="w-full h-48 object-cover">
+                            <div class="absolute top-2 right-2 bg-black bg-opacity-60 text-white text-xs px-2 py-1 rounded">3:52</div>
+                        </div>
+                        <div class="p-4">
+                            <div class="flex items-center mb-3">
+                                <div class="w-8 h-8 rounded-full overflow-hidden mr-2">
+                                    <img src="https://randomuser.me/api/portraits/men/65.jpg" alt="Creator" class="w-full h-full object-cover">
+                                </div>
+                                <span class="font-medium">Alex</span>
+                            </div>
+                            <h3 class="font-bold mb-2">New Song Preview</h3>
+                            <p class="text-gray-600 text-sm mb-3">Exclusive first listen to my upcoming single.</p>
+                            <div class="flex justify-between items-center text-sm">
+                                <div class="flex items-center text-gray-500">
+                                    <i class="fas fa-eye mr-1"></i> 9.8K
+                                    <i class="fas fa-heart ml-3 mr-1"></i> 4.2K
+                                </div>
+                                <span class="text-pink-500 font-medium">$5.99</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Popular Content Card 3 -->
+                    <div class="content-card bg-white rounded-xl overflow-hidden shadow-sm">
+                        <div class="relative">
+                            <img src="https://source.unsplash.com/random/600x400/?dance" alt="Content" class="w-full h-48 object-cover">
+                            <div class="absolute top-2 right-2 bg-black bg-opacity-60 text-white text-xs px-2 py-1 rounded">7:21</div>
+                        </div>
+                        <div class="p-4">
+                            <div class="flex items-center mb-3">
+                                <div class="w-8 h-8 rounded-full overflow-hidden mr-2">
+                                    <img src="https://randomuser.me/api/portraits/women/28.jpg" alt="Creator" class="w-full h-full object-cover">
+                                </div>
+                                <span class="font-medium">Mia</span>
+                            </div>
+                            <h3 class="font-bold mb-2">Choreography Breakdown</h3>
+                            <p class="text-gray-600 text-sm mb-3">Learn the moves from my latest viral dance video.</p>
+                            <div class="flex justify-between items-center text-sm">
+                                <div class="flex items-center text-gray-500">
+                                    <i class="fas fa-eye mr-1"></i> 7.5K
+                                    <i class="fas fa-heart ml-3 mr-1"></i> 3.1K
+                                </div>
+                                <span class="text-pink-500 font-medium">$6.99</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Categories -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">Browse Categories</h2>
+            
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                <div class="bg-white rounded-xl p-4 shadow-sm text-center cursor-pointer hover:bg-pink-50 transition duration-300">
+                    <div class="w-12 h-12 bg-pink-100 rounded-full flex items-center justify-center mx-auto mb-2">
+                        <i class="fas fa-camera text-pink-500 text-xl"></i>
+                    </div>
+                    <span class="font-medium">Photography</span>
+                </div>
+                
+                <div class="bg-white rounded-xl p-4 shadow-sm text-center cursor-pointer hover:bg-pink-50 transition duration-300">
+                    <div class="w-12 h-12 bg-pink-100 rounded-full flex items-center justify-center mx-auto mb-2">
+                        <i class="fas fa-dumbbell text-pink-500 text-xl"></i>
+                    </div>
+                    <span class="font-medium">Fitness</span>
+                </div>
+                
+                <div class="bg-white rounded-xl p-4 shadow-sm text-center cursor-pointer hover:bg-pink-50 transition duration-300">
+                    <div class="w-12 h-12 bg-pink-100 rounded-full flex items-center justify-center mx-auto mb-2">
+                        <i class="fas fa-utensils text-pink-500 text-xl"></i>
+                    </div>
+                    <span class="font-medium">Food</span>
+                </div>
+                
+                <div class="bg-white rounded-xl p-4 shadow-sm text-center cursor-pointer hover:bg-pink-50 transition duration-300">
+                    <div class="w-12 h-12 bg-pink-100 rounded-full flex items-center justify-center mx-auto mb-2">
+                        <i class="fas fa-music text-pink-500 text-xl"></i>
+                    </div>
+                    <span class="font-medium">Music</span>
+                </div>
+                
+                <div class="bg-white rounded-xl p-4 shadow-sm text-center cursor-pointer hover:bg-pink-50 transition duration-300">
+                    <div class="w-12 h-12 bg-pink-100 rounded-full flex items-center justify-center mx-auto mb-2">
+                        <i class="fas fa-paint-brush text-pink-500 text-xl"></i>
+                    </div>
+                    <span class="font-medium">Art</span>
+                </div>
+                
+                <div class="bg-white rounded-xl p-4 shadow-sm text-center cursor-pointer hover:bg-pink-50 transition duration-300">
+                    <div class="w-12 h-12 bg-pink-100 rounded-full flex items-center justify-center mx-auto mb-2">
+                        <i class="fas fa-gamepad text-pink-500 text-xl"></i>
+                    </div>
+                    <span class="font-medium">Gaming</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="gradient-bg rounded-2xl p-8 md:p-12 text-white mb-10">
+            <div class="max-w-3xl mx-auto text-center">
+                <h2 class="text-2xl md:text-4xl font-bold mb-4">Ready to start your creator journey?</h2>
+                <p class="text-lg mb-6">Join thousands of creators earning money doing what they love. Keep up to 80% of your earnings.</p>
+                <button class="bg-white text-pink-600 hover:bg-gray-100 px-8 py-3 rounded-full font-bold text-lg transition duration-300">
+                    Become a creator today
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <div class="gradient-bg w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-xl">FH</div>
+                        <span class="text-xl font-bold">FansHub</span>
+                    </div>
+                    <p class="text-gray-400 mb-4">The premier platform connecting creators with their biggest fans.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4">For Creators</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">How it works</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Pricing</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Creator Resources</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Community</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4">For Fans</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">Browse Creators</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Gift Subscriptions</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Help Center</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Safety Guidelines</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Company</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">About Us</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Careers</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Press</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <div class="text-gray-400 text-sm mb-4 md:mb-0">
+                        © 2023 FansHub. All rights reserved.
+                    </div>
+                    <div class="flex space-x-6">
+                        <a href="#" class="text-gray-400 hover:text-white text-sm">Terms</a>
+                        <a href="#" class="text-gray-400 hover:text-white text-sm">Privacy</a>
+                        <a href="#" class="text-gray-400 hover:text-white text-sm">Cookies</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Redirect everything to Rick Astley
+        document.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.location.href = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
+        });
+
+        // Tab functionality
+        const tabButtons = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+        
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons and contents
+                tabButtons.forEach(btn => btn.classList.remove('active', 'border-pink-500', 'text-pink-500'));
+                tabContents.forEach(content => content.classList.remove('active'));
+                
+                // Add active class to clicked button
+                button.classList.add('active', 'border-pink-500', 'text-pink-500');
+                
+                // Show corresponding content
+                const tabId = button.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+
+        // Mobile menu toggle (placeholder - would need more implementation)
+        const mobileMenuBtn = document.querySelector('.md\\:hidden');
+        mobileMenuBtn.addEventListener('click', () => {
+            alert('Mobile menu would open here in a full implementation');
+        });
+
+        // Like button functionality
+        document.querySelectorAll('.fa-heart').forEach(heart => {
+            heart.addEventListener('click', function(e) {
+                e.stopPropagation();
+                this.classList.toggle('text-red-500');
+                this.classList.toggle('text-pink-500');
+                
+                // In a real app, you would update the like count via AJAX
+                const likesSpan = this.nextElementSibling;
+                if (this.classList.contains('text-red-500')) {
+                    likesSpan.textContent = parseInt(likesSpan.textContent) + 1;
+                } else {
+                    likesSpan.textContent = parseInt(likesSpan.textContent) - 1;
+                }
+            });
+        });
+
+        // Creator card click
+        document.querySelectorAll('.creator-card').forEach(card => {
+            card.addEventListener('click', function() {
+                // In a real app, this would navigate to the creator's profile
+                alert('Navigating to creator profile');
+            });
+        });
+
+        // Content card click
+        document.querySelectorAll('.content-card').forEach(card => {
+            card.addEventListener('click', function() {
+                // In a real app, this would show the content details/purchase modal
+                alert('Showing content details');
+            });
+        });
+    </script>
+</body>
+</html>
